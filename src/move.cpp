@@ -10,7 +10,7 @@ int h = 0, k1 = 0;
 
 void move(char turn[], char pole[][9])
 {
-    if (Check(turn, pole)) {
+    if (CheckCorrect(turn, pole)) {
         movePawn(pole);
     }
 }
