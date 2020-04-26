@@ -93,7 +93,7 @@ bool CheckCorrect(char turn[], char pole[][9])
 
     if (y_1 <= 0 || y_1 >= 9 || x_1 <= 0 || x_1 >= 9 || x_2 <= 0 || x_2 >= 9
         || y_2 <= 0 || y_2 >= 9) {
-        cout << "entry incorrect, za predelami polya" << endl;
+        cout << "Figura ne mozet nahoditsya za predelami polya" << endl;
         return false;
     }
     return true;
