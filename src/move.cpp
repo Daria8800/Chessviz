@@ -5,8 +5,8 @@
 
 using namespace std;
 
-int move1 = 0, move2 = 0;
-int h = 0, k1 = 0;
+int x_1 = 0, x_2 = 0;
+int y_1 = 0, y_2 = 0;
 
 void move(char turn[], char pole[][9])
 {
@@ -17,82 +17,82 @@ void move(char turn[], char pole[][9])
 
 void movePawn(char pole[][9])
 {
-    if (pole[move1 - 1][h] == 'p') {
-        pole[move1 - 1][h] = ' ';
-        pole[move2 - 1][k1] = 'p';
-    } else if (pole[move1 - 1][h] == 'P') {
-        pole[move1 - 1][h] = ' ';
-        pole[move2 - 1][k1] = 'P';
+    if (pole[x_1 - 1][y_1] == 'p') {
+        pole[x_1 - 1][y_1] = ' ';
+        pole[x_2 - 1][y_2] = 'p';
+    } else if (pole[x_1 - 1][y_1] == 'P') {
+        pole[x_1 - 1][y_1] = ' ';
+        pole[x_2 - 1][y_2] = 'P';
     }
 }
 
 bool CheckCorrect(char turn[], char pole[][9])
 {
-    string s = " ";
+    string transformIntoInt = " ";
     cout << "Do move:" << endl;
     cin >> turn;
     cout << endl;
     switch (turn[0]) {
     case 'a':
-        h = 1;
+        x_1 = 1;
         break;
     case 'b':
-        h = 2;
+        x_1 = 2;
         break;
     case 'c':
-        h = 3;
+        x_1 = 3;
         break;
     case 'd':
-        h = 4;
+        x_1 = 4;
         break;
     case 'e':
-        h = 5;
+        x_1 = 5;
         break;
     case 'f':
-        h = 6;
+        x_1 = 6;
         break;
     case 'g':
-        h = 7;
+        x_1 = 7;
         break;
     case 'h':
-        h = 8;
+        x_1 = 8;
         break;
     }
 
     switch (turn[3]) {
     case 'a':
-        k1 = 1;
+        x_2 = 1;
         break;
     case 'b':
-        k1 = 2;
+        x_2 = 2;
         break;
     case 'c':
-        k1 = 3;
+        x_2 = 3;
         break;
     case 'd':
-        k1 = 4;
+        x_2 = 4;
         break;
     case 'e':
-        k1 = 5;
+        x_2 = 5;
         break;
     case 'f':
-        k1 = 6;
+        x_2 = 6;
         break;
     case 'g':
-        k1 = 7;
+        x_2 = 7;
         break;
     case 'h':
-        k1 = 8;
+        x_2 = 8;
         break;
     }
-    s[0] = turn[1];
-    move1 = atoi(s.c_str());
+    transformIntoInt[0] = turn[1];
+    y_1 = atoi(transformIntoInt.c_str());
 
-    s[0] = turn[4];
-    move2 = atoi(s.c_str());
+    transformIntoInt[0] = turn[4];
+    y_2 = atoi(transformIntoInt.c_str());
 
-    if (move1 <= 0 || move1 >= 9 || h <= 0 || h >= 9 || move2 <= 0 || move2 >= 9
-        || k1 <= 0 || k1 >= 9) {
+    if (y_1 <= 0 || y_1 >= 9 || x_1 <= 0 || x_1 >= 9 || x_2 <= 0 || x_2 >= 9
+        || y_2 <= 0 || y_2 >= 9) {
         cout << "entry incorrect, za predelami polya" << endl;
         return false;
     }
