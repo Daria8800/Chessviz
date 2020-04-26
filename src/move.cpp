@@ -1,9 +1,9 @@
-#include "head.h"
+\#include "head.h"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
 
-using namespace std;
+        using namespace std;
 
 int move1 = 0, move2 = 0;
 <<<<<<< HEAD
