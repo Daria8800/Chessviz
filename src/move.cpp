@@ -1,16 +1,16 @@
-#include "head.h"
+\#include "head.h"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
 
-using namespace std;
+        using namespace std;
 
 int move1 = 0, move2 = 0;
 int h = 0, k1 = 0;
 
 void move(char turn[], char pole[][9])
 {
-    if (Check(turn, pole)) {
+    if (CheckCorrect(turn, pole)) {
         movePawn(pole);
     }
 }
