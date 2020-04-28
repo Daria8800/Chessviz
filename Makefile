@@ -5,7 +5,7 @@ CFLAGS = -Wall -Werror -MP -MMD
 
 all: ./bin/chess.exe
 
--include build/src/*.d
+-include build/*.d
 
 ./bin/chess.exe: ./build/main.o ./build/drawBoard.o ./build/move.o
 	$(g) $(CFLAGS) -o ./bin/chess.exe ./build/main.o ./build/move.o ./build/drawBoard.o -lm
