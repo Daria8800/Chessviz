@@ -10,28 +10,35 @@ int y_1 = 0, y_2 = 0;
 
 void move(char turn[], char pole[][9])
 {
-    if (CheckCorrect(turn, pole)) {
-        movePawn(pole);
+    if (strlen(turn) == 5) {
+        if (CheckCorrect(turn, pole)) {
+            movePawn(pole);
+        }
+    } else {
+        cout << "neverniy vvod, primer vernogo vvoda: e2-e4, f7-f6" << endl;
     }
 }
 
 void movePawn(char pole[][9])
 {
-    if (pole[x_1 - 1][y_1] == 'p') {
-        pole[x_1 - 1][y_1] = ' ';
-        pole[x_2 - 1][y_2] = 'p';
-    } else if (pole[x_1 - 1][y_1] == 'P') {
-        pole[x_1 - 1][y_1] = ' ';
-        pole[x_2 - 1][y_2] = 'P';
+    if (pole[y_1 - 1][x_1] == 'p') {
+        pole[y_1 - 1][x_1] = ' ';
+        pole[y_2 - 1][x_2] = 'p';
+    } else if (pole[y_1 - 1][x_1] == 'P') {
+        pole[y_1 - 1][x_1] = ' ';
+        pole[y_2 - 1][x_2] = 'P';
     }
 }
 
 bool CheckCorrect(char turn[], char pole[][9])
 {
+    if (turn[2] == '-' || turn[2] == 'x') {
+    } else {
+        cout << "neverniy vvod" << endl;
+        return false;
+    }
     string transformIntoInt = " ";
-    cout << "Do move:" << endl;
-    cin >> turn;
-    cout << endl;
+    int outOfBoard1 = 0, outOfBoard2 = 9;
     switch (turn[0]) {
     case 'a':
         x_1 = 1;
@@ -91,8 +98,9 @@ bool CheckCorrect(char turn[], char pole[][9])
     transformIntoInt[0] = turn[4];
     y_2 = atoi(transformIntoInt.c_str());
 
-    if (y_1 <= 0 || y_1 >= 9 || x_1 <= 0 || x_1 >= 9 || x_2 <= 0 || x_2 >= 9
-        || y_2 <= 0 || y_2 >= 9) {
+    if (y_1 <= outOfBoard1 || y_1 >= outOfBoard2 || x_1 <= outOfBoard1
+        || x_1 >= outOfBoard2 || x_2 <= outOfBoard1 || x_2 >= outOfBoard2
+        || y_2 <= outOfBoard1 || y_2 >= outOfBoard2) {
         cout << "Figura ne mozet nahoditsya za predelami polya" << endl;
         return false;
     }
