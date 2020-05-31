@@ -1,4 +1,4 @@
-#include "head.h"
+#include "header.h"
 #include <cstring>
 #include <iostream>
 #include <stdlib.h>
@@ -7,102 +7,121 @@ using namespace std;
 
 int x_1 = 0, x_2 = 0;
 int y_1 = 0, y_2 = 0;
+int BoundMin = 0, BoundMax = 9;
+int Qualifier;
 
-void move(char turn[], char pole[][9])
-{
-    if (strlen(turn) == 5) {
-        if (CheckCorrect(turn, pole)) {
-            movePawn(pole);
-        }
-    } else {
-        cout << "neverniy vvod, primer vernogo vvoda: e2-e4, f7-f6" << endl;
+void move(char turn[], char pole[][9]) {
+  if (strlen(turn) == 5) {
+    Qualifier = 0;
+    if (Check(turn, pole, Qualifier)) {
+      movePawn(pole);
     }
+  } else {
+    Qualifier = 1;
+    if (Check(turn, pole, Qualifier)) {
+      moveFigure(turn, pole);
+    }
+  }
 }
 
-void movePawn(char pole[][9])
-{
-    if (pole[y_1 - 1][x_1] == 'p') {
-        pole[y_1 - 1][x_1] = ' ';
-        pole[y_2 - 1][x_2] = 'p';
-    } else if (pole[y_1 - 1][x_1] == 'P') {
-        pole[y_1 - 1][x_1] = ' ';
-        pole[y_2 - 1][x_2] = 'P';
-    }
+void movePawn(char pole[][9]) {
+  if (pole[x_1 - 1][y_1] == 'p') {
+    pole[x_1 - 1][y_1] = ' ';
+    pole[x_2 - 1][y_2] = 'p';
+  } else if (pole[x_1 - 1][y_1] == 'P') {
+    pole[x_1 - 1][y_1] = ' ';
+    pole[x_2 - 1][y_2] = 'P';
+  } else
+    cout << "Entry incorrect, you tried to go not a pawn" << endl << endl;
 }
 
-bool CheckCorrect(char turn[], char pole[][9])
-{
-    if (turn[2] == '-' || turn[2] == 'x') {
-    } else {
-        cout << "neverniy vvod" << endl;
-        return false;
-    }
-    string transformIntoInt = " ";
-    int outOfBoard1 = 0, outOfBoard2 = 9;
-    switch (turn[0]) {
-    case 'a':
-        x_1 = 1;
-        break;
-    case 'b':
-        x_1 = 2;
-        break;
-    case 'c':
-        x_1 = 3;
-        break;
-    case 'd':
-        x_1 = 4;
-        break;
-    case 'e':
-        x_1 = 5;
-        break;
-    case 'f':
-        x_1 = 6;
-        break;
-    case 'g':
-        x_1 = 7;
-        break;
-    case 'h':
-        x_1 = 8;
-        break;
-    }
+void moveFigure(char turn[], char pole[][9]) {
+  if (pole[x_1 - 1][y_1] == turn[0]) {
+    pole[x_1 - 1][y_1] = ' ';
+    pole[x_2 - 1][y_2] = turn[0];
+  } else
+    cout << "Entry incorrect, you tried to go not by figures from the back row"
+         << endl
+         << endl;
+}
 
-    switch (turn[3]) {
-    case 'a':
-        x_2 = 1;
-        break;
-    case 'b':
-        x_2 = 2;
-        break;
-    case 'c':
-        x_2 = 3;
-        break;
-    case 'd':
-        x_2 = 4;
-        break;
-    case 'e':
-        x_2 = 5;
-        break;
-    case 'f':
-        x_2 = 6;
-        break;
-    case 'g':
-        x_2 = 7;
-        break;
-    case 'h':
-        x_2 = 8;
-        break;
-    }
-    transformIntoInt[0] = turn[1];
-    y_1 = atoi(transformIntoInt.c_str());
+bool Check(char turn[], char pole[][9], int Qualifier) {
+  string s = " ";
+  switch (turn[0 + Qualifier]) {
+  case 'a':
+    y_1 = 1;
+    break;
+  case 'b':
+    y_1 = 2;
+    break;
+  case 'c':
+    y_1 = 3;
+    break;
+  case 'd':
+    y_1 = 4;
+    break;
+  case 'e':
+    y_1 = 5;
+    break;
+  case 'f':
+    y_1 = 6;
+    break;
+  case 'g':
+    y_1 = 7;
+    break;
+  case 'h':
+    y_1 = 8;
+    break;
+  default: {
+    cout << "ERROR" << endl << endl;
+    return false;
+  }; break;
+  }
 
-    transformIntoInt[0] = turn[4];
-    y_2 = atoi(transformIntoInt.c_str());
+  switch (turn[3 + Qualifier]) {
+  case 'a':
+    y_2 = 1;
+    break;
+  case 'b':
+    y_2 = 2;
+    break;
+  case 'c':
+    y_2 = 3;
+    break;
+  case 'd':
+    y_2 = 4;
+    break;
+  case 'e':
+    y_2 = 5;
+    break;
+  case 'f':
+    y_2 = 6;
+    break;
+  case 'g':
+    y_2 = 7;
+    break;
+  case 'h':
+    y_2 = 8;
+    break;
+  default: {
+    cout << "Entry incorrect" << endl << endl;
+    return false;
+  }; break;
+  }
 
-    if (y_1 <= outOfBoard1 || y_1 >= outOfBoard2 || x_1 <= outOfBoard1
-        || x_1 >= outOfBoard2 || x_2 <= outOfBoard1 || x_2 >= outOfBoard2
-        || y_2 <= outOfBoard1 || y_2 >= outOfBoard2) {
-        cout << "Figura ne mozet nahoditsya za predelami polya" << endl;
-        return false;
-    }
-    return true;
+  s[0] = turn[1 + Qualifier];
+  x_1 = atoi(s.c_str());
+
+  s[0] = turn[4 + Qualifier];
+  x_2 = atoi(s.c_str());
+
+  if (x_1 <= BoundMin || x_1 >= BoundMax ||
+      y_1 <= BoundMin || y_1 >= BoundMax ||
+      x_2 <= BoundMin || x_2 >= BoundMax ||
+      y_2 <= BoundMin || y_2 >= BoundMax ||
+      (pole[x_1 - 1][y_1] == ' ')) {
+    cout << "Entry incorrect" << endl << endl;
+    return false;
+  }
+  return true;
 }
